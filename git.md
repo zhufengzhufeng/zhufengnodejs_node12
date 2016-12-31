@@ -109,3 +109,47 @@ git reset --hard HEAD~3/HEAD^ 去上一级
 ```
 git reflog
 ```
+
+## 代码比较
+- 工作区和暂存区
+```
+git diff
+```
+- 暂存区和历史区
+```
+git diff --cached
+```
+- 工作区和历史区
+```
+git diff 分支的名字
+```
+
+## 分支
+- 主要是写代码时，不会影响主代码
+###  创建分支
+``` 
+git branch dev
+```
+### 查看分支
+```
+git branch
+```
+### 进入到分支里
+```
+git checkout 分支名
+```
+
+## 删除分支
+```
+git branch -D 分支名
+```
+
+## 创建并切入
+```
+git checkout -b dev  //创建并切入到dev分支上
+```
+
+## 合并分支
+```
+git merge 合并分支
+```
