@@ -71,6 +71,7 @@ bower install jquery#3.0.0 --save
 ```
 {"directory":"./lib"}
 ```
+
 ## 内网
 ```
 npm config set registry "http://172.18.0.199"
@@ -88,3 +89,24 @@ npm root -g
 
 
 
+## 发布包
+- 得是一个包
+```
+npm init -y
+```
+- 切换到官方的源上
+```
+nrm use npm
+```
+- 你需要一个账号
+```
+npm adduser
+```
+- 发布
+```
+npm publish
+```
+- 取消发布
+```
+npm unpublish --force
+```
