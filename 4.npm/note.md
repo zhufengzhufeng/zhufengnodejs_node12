@@ -20,21 +20,57 @@ http-server//启动一个本地的服务器
 #### 开发依赖
 - 在开发时使用的，上线后不需要用的
 ```
-npm install 包名 --save-dev/-D
+npm install 包名 --save-dev或-D
 ```
 #### 发布依赖
 - 发布项目时仍需要的模块
 ```
-npm install 包名 --save/-S
+npm install 包名 --save或-S
 ```
-
+#### 卸载
+```
+npm uninstall gulp
+```
+## 查看jq版本
+```
+npm info jquery
+```
+## 指定版本安装
+```
+npm install jquery@ --save
+```
 ## 安装依赖
 ```
 npm install
 ```
 
+## 删除全局安装
+```
+npm uninstall http-server -g
+```
+
 > 会将开发依赖和依赖全部下载
 
+## bower管理前端代码
+- 安装bower
+```
+npm install bower -g
+```
+- 初始化bower.json
+``` 
+bower init
+```
+- 安装"前端"包
+```
+bower install jquery#3.0.0 --save
+```
+> 默认安装到bower_components下
+
+- 可以指定安装目录  
+创建文件 .bowerrc
+```
+{"directory":"./lib"}
+```
 ## 内网
 ```
 npm config set registry "http://172.18.0.199"
@@ -51,4 +87,4 @@ npm root -g
 > npm是在path目录下的，npm中的快捷也可以在命令下直接访问
 
 
-## 将gulp安装成开发依赖，angular安装成发布依赖
+
