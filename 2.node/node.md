@@ -19,3 +19,24 @@
 
 ## 阻塞 非阻塞
 针对内核来说的，如果厨师拉着服务员，一直聊天，服务员不能异步，当前为阻塞状态
+
+## 事件环
+
+## global
+- global
+- console  
+    - warn
+    - info 
+    - error
+    - time timenEnd...
+- process 
+    - exit(0)
+    - kill(id);
+    - pid   
+- setTimeout()
+- setImmediate()
+- process.nextTick()
+    - process.cwd()
+    - process.chdir();
+    
+## 模块
