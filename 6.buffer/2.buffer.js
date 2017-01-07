@@ -89,3 +89,15 @@ Buffer.myConcat = function (list,totalLength) {
     return buffer.slice(0,index);
 };
 console.log(Buffer.myConcat([buffer2,buffer1,buffer3]).toString());
+//是不是Buffer isBuffer
+console.log(Buffer.isBuffer(newBuffer)); // true false
+
+//write copy toString slice concat
+//定义的三种方式 字符 数组 数字
+
+
+
+
+
+
+
