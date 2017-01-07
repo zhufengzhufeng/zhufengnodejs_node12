@@ -13,6 +13,15 @@ Man.prototype.on = function (eventName,callback) {
         this._events[eventName]=[callback];
     }
 };
+
+//{'有钱了',['买车','买包']}
+Man.prototype.removeListener = function (eventName,callback) {
+    if(this._events[eventName]) {
+        this._events[eventName] = this._events[eventName].filter(function (item) {
+            return item != callback;//filter返回false表示删除
+        });
+    }
+};
 Man.prototype.emit = function (eventName) {
     //将除了第一项的全部取出传递给 item执行
     var args = [].slice.call(arguments,1);//除了第一项的所有参数 ['妹子']
@@ -23,12 +32,12 @@ Man.prototype.emit = function (eventName) {
         });
     }
 };
-//{'有钱了',['买车','买包']}
-Man.prototype.removeListener = function (eventName,callback) {
-    if(this._events[eventName]) {
-        this._events[eventName] = this._events[eventName].filter(function (item) {
-            return item != callback;//filter返回false表示删除
-        });
+Man.prototype.once = function (eventName,callback) {
+    //绑定后 调用执行后移除
+    this.on(eventName,one);
+    function one() { //arguments = ['妹子'] //借用one函数，当one函数触发时，执行原有逻辑，执行后删除one函数，在次触发则不执行
+        callback.apply(this,arguments);
+        this.removeListener(eventName,one);
     }
 };
 function buyPack(who) {
@@ -40,5 +49,6 @@ function buyCar(who) {
 man.once('有钱了',buyPack);
 man.on('有钱了',buyCar);
 man.removeListener('有钱了',buyCar);//{'有钱了',【'买包'】}
+man.removeListener('有钱了',buyPack);
 man.emit('有钱了','妹子');
 //once的含义：绑定一次多次执行，只触发一次，触发一次后再数组移除掉
