@@ -24,3 +24,7 @@ fs.exists('./c',function (stat) {
 //appendFile appendFileSync
 //mkdir  mkdirSync
 //exists existsSync
+//-------------------------------
+//rmdir  rmdirSync 删除目录
+//readdir readdirSync 读取目录
+//unlink unlinkSync 删除文件
