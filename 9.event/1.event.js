@@ -23,12 +23,22 @@ Man.prototype.emit = function (eventName) {
         });
     }
 };
+//{'有钱了',['买车','买包']}
+Man.prototype.removeListener = function (eventName,callback) {
+    if(this._events[eventName]) {
+        this._events[eventName] = this._events[eventName].filter(function (item) {
+            return item != callback;//filter返回false表示删除
+        });
+    }
+};
 function buyPack(who) {
     console.log(`买包给${who}`);
 }
 function buyCar(who) {
     console.log(`买车给${who}`);
 }
-man.on('有钱了',buyPack);
+man.once('有钱了',buyPack);
 man.on('有钱了',buyCar);
+man.removeListener('有钱了',buyCar);//{'有钱了',【'买包'】}
 man.emit('有钱了','妹子');
+//once的含义：绑定一次多次执行，只触发一次，触发一次后再数组移除掉
