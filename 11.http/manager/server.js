@@ -14,7 +14,17 @@ http.createServer(function (req,res) {
     }else if(pathname == '/getUsers'){
         res.end(JSON.stringify(userList));
     }else if(pathname == '/addUser'){
-
+        var str = '';
+        req.on('data',function (data) {
+            str += data;
+        });
+        req.on('end',function () {
+            var user = JSON.parse(str);
+            //取数组的最后一项的id+1防止重复
+            user.id = userList.length?parseInt(userList[userList.length-1].id)+1:1;
+            userList.push(user);
+            res.end(JSON.stringify(userList));
+        });
     }else if(pathname == '/deleteUser'){
 
     }else{

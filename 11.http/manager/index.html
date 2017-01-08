@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>珠峰培训http://www.zhufengpeixun.cn</title>
-    <link rel="stylesheet" href="./bootstrap.css">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
 </head>
 <body >
 <div class="container">
@@ -19,7 +17,7 @@
             <input type="text" placeholder="请输入密码" id="password" class="form-control">
         </div>
         <div class="form-group">
-            <button class="btn btn-primary" type="button">添加</button>
+            <button class="btn btn-primary" type="button" id="btn">添加</button>
             <button class="btn btn-warning" type="reset">重置</button>
         </div>
     </form>
@@ -33,8 +31,7 @@
     xhr.open('GET','/getUsers',true);
     xhr.responseType = 'json';
     var oUl = document.querySelector('.list-group');
-    xhr.onload = function () {
-        var data = xhr.response;
+    function showList(data) { //用来将数据渲染到ul上
         var str = '';
         data.forEach(function (item) {
             str+=`<li class="list-group-item">
@@ -43,8 +40,30 @@
                   </li>`
         });
         oUl.innerHTML = str;
+    }
+    xhr.onload = function () {
+        var data = xhr.response;
+        showList(data);
     };
     xhr.send();
+    // 添加数据
+    var btn = document.querySelector('#btn');
+    var username = document.querySelector('#username');
+    var password = document.querySelector('#password');
+    btn.addEventListener('click',function () {
+        if(!(username.value&&password.value)){
+            return alert('请输入空');
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST','/addUser',true);
+        xhr.responseType = 'json';
+        xhr.onload = function () {
+            username.value = password.value = '';
+            showList(xhr.response);
+        };
+        var userObj = JSON.stringify({username:username.value,password:password.value});
+        xhr.send(userObj);
+    },false);
 </script>
 </body>
 </html>
