@@ -8,6 +8,10 @@ http.createServer(function (req,res) {
     if(pathname == '/'){
         res.setHeader('Content-Type','text/html;charset=utf8');
         fs.createReadStream('./index.html').pipe(res);
+    }else if(pathname == '/clock'){//动态返回时间
+        var date = new Date();
+        var obj = {date:date.toLocaleString()};
+        res.end(JSON.stringify(obj));
     }else{
         fs.exists('.'+pathname,function (flag) {
             if(flag){

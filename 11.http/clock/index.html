@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训http://www.zhufengpeixun.cn</title>
+</head>
+<body>
+<!-- /clock 每秒对服务器端请求 /clock -->
+<div id="timer"></div>
+<script>
+    var timer = document.querySelector('#timer');
+    function clock(){
+        //1.创建xhr对象
+        var xhr = new XMLHttpRequest();
+        //2.打开open  请求方式 url路径  是否异步
+        xhr.open('GET','/clock',true);
+        //3.监听状态
+        /* xhr.onreadystatechange = function () {
+         if(xhr.status==200&&xhr.readyState == 4){}
+         };*/
+        xhr.responseType = 'json'; //这里设置了类型为json ，下面就只能xhr.response
+        xhr.onload = function () {
+            timer.innerHTML = xhr.response.date;
+            //服务端会把数据 xhr.response中
+        };
+        //发送请求
+        xhr.send();
+    }
+    clock();
+    setInterval(function () {
+        clock();
+    },1000);
+</script>
+</body>
+</html>
