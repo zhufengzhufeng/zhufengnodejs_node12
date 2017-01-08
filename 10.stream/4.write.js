@@ -10,7 +10,7 @@ function write() {
 }
 ws.on('drain',function () {
     console.log('吃完了');
-    write()
+    write();
 });
 write();
 //write end on('drain');

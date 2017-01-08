@@ -46,9 +46,12 @@ function buyPack(who) {
 function buyCar(who) {
     console.log(`买车给${who}`);
 }
-man.once('有钱了',buyPack);
+man.on('有钱了',buyPack);
 man.on('有钱了',buyCar);
 man.removeListener('有钱了',buyCar);//{'有钱了',【'买包'】}
-man.removeListener('有钱了',buyPack);
+//man.removeListener('有钱了',buyPack);
+man.emit('有钱了','妹子');
+man.emit('有钱了','妹子');
+man.emit('有钱了','妹子');
 man.emit('有钱了','妹子');
 //once的含义：绑定一次多次执行，只触发一次，触发一次后再数组移除掉

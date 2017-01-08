@@ -26,7 +26,11 @@ http.createServer(function (req,res) {
             res.end(JSON.stringify(userList));
         });
     }else if(pathname == '/deleteUser'){
-
+        var id = urlObj.query.id;
+        userList = userList.filter(function (item) {
+            return item.id !=id;
+        });
+        res.end(JSON.stringify(userList));
     }else{
         fs.exists('.'+pathname,function (flag) {
             if(flag){

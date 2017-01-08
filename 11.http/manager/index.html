@@ -36,7 +36,7 @@
         data.forEach(function (item) {
             str+=`<li class="list-group-item">
                     用户名:${item.username}  密码:${item.password}
-                    <button class="btn btn-danger pull-right btn-xs">删除</button>
+                    <button class="btn btn-danger pull-right btn-xs" onclick="del(${item.id})">删除</button>
                   </li>`
         });
         oUl.innerHTML = str;
@@ -64,6 +64,15 @@
         var userObj = JSON.stringify({username:username.value,password:password.value});
         xhr.send(userObj);
     },false);
+    function del(id) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('DELETE','/deleteUser?id='+id,true);
+        xhr.responseType = 'json';
+        xhr.onload = function () {
+            showList(xhr.response);
+        };
+        xhr.send();
+    }
 </script>
 </body>
 </html>

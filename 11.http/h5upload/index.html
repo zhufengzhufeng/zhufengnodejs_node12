@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训http://www.zhufengpeixun.cn</title>
+    <style>
+        #drag{width:30%;height: 200px;margin-left: 35%;border: 1px dashed blue; outline: 1px solid #00b3ee; text-align: center;
+        line-height: 200px;font-size: 49px}
+    </style>
+    <link rel="stylesheet" href="./bootstrap.css">
+</head>
+<body>
+<div id="drag">拖放区域</div>
+<button id="upload" class="btn btn-default">高速上传</button>
+<table class="table table-bordered">
+    <tr>
+        <th class="text-center">文件名称</th>
+        <th class="text-center">文件类型</th>
+        <th class="text-center">文件大小</th>
+    </tr>
+    <tr class="text-center">
+        <td class="fileName"></td>
+        <td class="fileType"></td>
+        <td class="fileSize"></td>
+    </tr>
+</table>
+<div class="progress">
+    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+    </div>
+</div>
+<script>
+    var oDrag = document.getElementById('drag');
+    oDrag.ondragover = function (e) { //拖拽悬停
+        e.preventDefault();
+    };
+    var fileName = document.querySelector('.fileName');
+    var fileType = document.querySelector('.fileType');
+    var fileSize = document.querySelector('.fileSize');
+    var process = document.querySelector('.progress-bar');
+    var file = '';
+    function changeSize(val) {
+        if(val>1024*1024*1024){
+            return (val/1024/1024/1024).toFixed(2)+'G';
+        }
+        if(val>1024*1024){
+            return (val/1024/1024).toFixed(2)+'MB';
+        }
+        if(val>1024){
+            return (val/1024).toFixed(2)+'kb';
+        }
+        return val+'b';
+    }
+    oDrag.ondrop = function (e) { //放手事件
+        e.preventDefault();
+        file = e.dataTransfer.files[0];//获取拖拽的文件
+        fileName.innerHTML = file.name;
+        fileType.innerHTML = file.type;
+        fileSize.innerHTML = changeSize(file.size);
+    };
+    var upload = document.getElementById('upload');
+    upload.onclick = function () {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST','/upload',true);
+        xhr.upload.onprogress = function (e) { //上传进度的事件
+            //1秒执行5-10次  e.loaded  e.total 求上传的百分比
+            var percent = e.loaded / e.total *100 +'%';
+            process.style.width = percent;
+        };
+        xhr.onload = function () {
+            alert('上传完成 请查看');
+        };
+        //formData H5
+        var fd = new FormData;
+        fd.append('content',file);
+        xhr.send(fd);
+    };
+    //作业：增删改查 操作用户
+    //作业：异步递归创建文件夹
+
+</script>
+</body>
+</html>
