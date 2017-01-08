@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训http://www.zhufengpeixun.cn</title>
+    <link rel="stylesheet" href="./bootstrap.css">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+</head>
+<body >
+<div class="container">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="username" class="control-label">用户名</label>
+            <input type="text" id="username" placeholder="请输入用户名" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password" class="control-label">密码</label>
+            <input type="text" placeholder="请输入密码" id="password" class="form-control">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="button">添加</button>
+            <button class="btn btn-warning" type="reset">重置</button>
+        </div>
+    </form>
+    <ul class="list-group">
+
+    </ul>
+</div>
+<script>
+    //查询用户 /getUsers 增加用户 /addUser 删除用户 /deleteUser?id=1
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET','/getUsers',true);
+    xhr.responseType = 'json';
+    var oUl = document.querySelector('.list-group');
+    xhr.onload = function () {
+        var data = xhr.response;
+        var str = '';
+        data.forEach(function (item) {
+            str+=`<li class="list-group-item">
+                    用户名:${item.username}  密码:${item.password}
+                    <button class="btn btn-danger pull-right btn-xs">删除</button>
+                  </li>`
+        });
+        oUl.innerHTML = str;
+    };
+    xhr.send();
+</script>
+</body>
+</html>
